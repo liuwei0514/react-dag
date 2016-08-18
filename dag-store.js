@@ -9,6 +9,7 @@ let nodes = (state = [], action = {}) => {
         {
           id: uuid.v4(),
           label: action.payload.label,
+          style: action.payload.style,
           type: action.payload.type
         }
       ];
