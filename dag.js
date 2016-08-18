@@ -155,12 +155,13 @@ export class DAG extends Component {
     }, 600);
   }
   addNode(node) {
-    let {type, label} = node;
+    let {type, label, style} = node;
     this.store.dispatch({
       type: 'ADD-NODE',
       payload: {
         type,
         label,
+        style,
         id: type + Date.now().toString().slice(8)
       }
     });
