@@ -6,10 +6,14 @@ import uuid from 'node-uuid';
 
 import NodesList from './components/NodesList/NodesList';
 
-require('./styles/dag.less');
-var jsPlumb = require('jsPlumb').jsPlumb;
+// require('./styles/dag.less');
+import './styles/dag.less';
 
-var classnames = require('classname');
+// var jsPlumb = require('jsPlumb').jsPlumb;
+import {jsPlumb} from 'jsPlumb';
+
+// var classnames = require('classname');
+import classnames from 'classname';
 
 export class DAG extends Component {
   constructor(props) {
