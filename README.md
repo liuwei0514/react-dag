@@ -4,7 +4,7 @@ This is a base implementation of wrapping jsplumb with react + redux to be more 
 
 #### Install
 
-`npm install git://github.com/ajainarayanan/react-dag.git#master`
+`npm install git://github.com/liuwei0514/react-dag.git#master --save`
 
   (As of now I have not yet published it to npm YET! Will do soon.)
 
