@@ -8,6 +8,7 @@ import NodesList from './components/NodesList/NodesList';
 
 require('./styles/dag.less');
 var jsPlumb = require('jsplumb');
+
 var classnames = require('classname');
 
 export class DAG extends Component {

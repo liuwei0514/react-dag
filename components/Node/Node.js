@@ -27,8 +27,9 @@ export default class Node extends Component {
         <div className="box text-center"
               id={this.state.id}
               style={this.state.style}>
-          <div className={classnames({'dag-node': true, [this.state.type]: true})}></div>
+          <div className={classnames({'dag-node': true, [this.state.type]: true})}>
             <div className="label">{this.state.label}</div>
+          </div>
         </div>
       </DAG-Node>
     )
