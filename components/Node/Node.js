@@ -30,6 +30,7 @@ export default class Node extends Component {
           <div className={classnames({'dag-node': true, [this.state.type]: true})}>
             <div className="label">{this.state.label}</div>
           </div>
+          {this.state.id==='000000000' || this.state.id==='99999999' ? '':<div className="deleteLabel" label={this.state.label}>删除</div>}
         </div>
       </DAG-Node>
     )

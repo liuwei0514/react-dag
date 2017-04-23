@@ -174,7 +174,7 @@
 	    value: function renderGraph() {
 	      this.addEndpoints();
 	      this.makeNodesDraggable();
-	      this.renderConnections();
+	      // this.renderConnections();
 	    }
 	  }, {
 	    key: 'makeNodesDraggable',
@@ -32795,6 +32795,11 @@
 	              { className: 'label' },
 	              this.state.label
 	            )
+	          ),
+	          this.state.id === '000000000' || this.state.id === '99999999' ? '' : _react2.default.createElement(
+	            'div',
+	            { className: 'deleteLabel', label: this.state.label },
+	            '\u5220\u9664'
 	          )
 	        )
 	      );

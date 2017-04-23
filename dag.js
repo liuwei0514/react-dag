@@ -57,7 +57,7 @@ export class DAG extends Component {
   renderGraph() {
     this.addEndpoints();
     this.makeNodesDraggable();
-    this.renderConnections();
+    // this.renderConnections();
   }
   makeNodesDraggable() {
     let nodes = document.querySelectorAll('#dag-container .box');
