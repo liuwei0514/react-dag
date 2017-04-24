@@ -34,21 +34,23 @@ my-dag {
 
       .box {
         position: absolute;
-        height: 66px;
-        width: 105px;
+        width: 130px;
+        height: 50px;
         cursor: pointer;
-
+        .jtk-connector { z-index:4; }
+        .jtk-endpoint { z-index:5; }
+        .jtk-overlay { z-index:6; }
         .dag-node {
+          z-index:20;
           border: 1px solid #346789;
           box-shadow: 2px 2px 19px #aaa;
           border-radius: 0.5em;
           opacity: 0.8;
-          width: 80px;
-          height: 80px;
-          line-height: 80px;
+          width: 130px;
+          height: 50px;
+          line-height: 40px;
           cursor: pointer;
           text-align: center;
-          z-index: 20;
           position: absolute;
           background-color: #eeeeef;
           color: black;
