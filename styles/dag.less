@@ -39,12 +39,29 @@ my-dag {
         cursor: pointer;
 
         .dag-node {
+          border: 1px solid #346789;
+          box-shadow: 2px 2px 19px #aaa;
+          border-radius: 0.5em;
+          opacity: 0.8;
+          width: 80px;
+          height: 80px;
+          line-height: 80px;
+          cursor: pointer;
+          text-align: center;
+          z-index: 20;
+          position: absolute;
+          background-color: #eeeeef;
+          color: black;
+          font-family: helvetica, sans-serif;
+          padding: 0.5em;
+          font-size: 0.9em;
+          transition: box-shadow 0.15s ease-in;
           margin: 0 auto;
           backgroun-clip: border-box;
-          height: 46px;
-          width: 56px;
-          border-radius: 5px;
-
+          &:hover {
+              box-shadow: 2px 2px 19px #444;
+              opacity: 0.6;
+          }
           &.source {
             border: 2px solid green;
             ~.label {
