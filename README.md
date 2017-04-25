@@ -1,3 +1,8 @@
+### 修改时几个命令
+ - `cp -rf projects/react-dag projects/tos-client/node_modules`
+ - `npm run prod-build`
+ - `npm run dev-build`
+
 ### react-dag
 
 This is a base implementation of wrapping jsplumb with react + redux to be more usable in a react based environment.
