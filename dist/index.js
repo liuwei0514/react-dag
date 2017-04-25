@@ -298,7 +298,7 @@
 	        _this5.toggleLoading(false);
 	        if (Object.keys(_this5.props.data || {}).length) {
 	          _this5.renderGraph();
-	          _this5.cleanUpGraph();
+	          // this.cleanUpGraph();
 	        }
 	      }, 600);
 	    }
@@ -316,6 +316,27 @@
 	          label: label,
 	          style: style,
 	          id: type + Date.now().toString().slice(8)
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'removeConnection',
+	    value: function removeConnection(sourceid, targetid) {
+	      this.store.dispatch({
+	        type: 'REMOVE-CONNECTION',
+	        payload: {
+	          from: sourceid,
+	          to: targetid
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'removeNode',
+	    value: function removeNode(nodeId) {
+	      this.store.dispatch({
+	        type: 'REMOVE-NODE',
+	        payload: {
+	          id: nodeId
 	        }
 	      });
 	    }
@@ -21041,6 +21062,11 @@
 	        style: action.payload.style,
 	        type: action.payload.type
 	      }]);
+	    case 'REMOVE-NODE':
+	      var nodes = state.filter(function (item) {
+	        return item.id !== action.payload.id;
+	      });
+	      return nodes;
 	    case 'UPDATE_NODE':
 	      return state.map(function (node) {
 	        if (node.id === action.payload.nodeId) {
@@ -21065,6 +21091,11 @@
 	        from: action.connection.from,
 	        to: action.connection.to
 	      }]);
+	    case 'REMOVE-CONNECTION':
+	      var nodes = state.filter(function (item) {
+	        return !(item.from === action.payload.from && item.to === action.payload.to);
+	      });
+	      return nodes;
 	    case 'SET-CONNECTIONS':
 	      return [].concat(_toConsumableArray(action.payload.connections));
 	    case 'RESET':
@@ -30782,7 +30813,7 @@
 	};
 	
 	var connectorStyle = exports.connectorStyle = {
-	  stroke: 'black',
+	  stroke: '#2da5e2',
 	  strokeWidth: 2,
 	  radius: 5,
 	  lineWidth: 2
@@ -30798,8 +30829,8 @@
 	  endpoint: 'Dot',
 	  maxConnections: -1, // -1 means unlimited connections
 	  paintStyle: {
-	    stroke: 'black',
-	    fill: 'black',
+	    stroke: '#2da5e2',
+	    fill: '#2da5e2',
 	    radius: 5,
 	    lineWidth: 3
 	  },
@@ -30808,11 +30839,11 @@
 	var sourceSettings = exports.sourceSettings = extend({
 	  isSource: true,
 	  connectorStyle: connectorStyle,
-	  anchor: [0.5, 1, 1, 0, 26, -43, 'sourceAnchor']
+	  anchor: [1, 0.5, 1, 0, 0, 0, 'sourceAnchor']
 	}, commonSettings);
 	var sinkSettings = exports.sinkSettings = extend({
 	  isTarget: true,
-	  anchor: [0.5, 1, -1, 0, -26, -43, 'sinkAnchor'],
+	  anchor: [0, 0.5, -1, 0, 0, 0, 'sinkAnchor'],
 	  connectorStyle: connectorStyle
 	}, commonSettings);
 	
@@ -30836,8 +30867,9 @@
 	
 	  settings.transformSource = clone(settings.source);
 	  settings.transformSink = clone(settings.sink);
-	  settings.transformSource.anchor = [0.5, 1, 1, 0, 26, -43, 'transformAnchor'];
-	  settings.transformSink.anchor = [0.5, 1, -1, 0, -26, -43, 'transformAnchor'];
+	  // 0, 0.5, -1, 0
+	  settings.transformSource.anchor = [1, 0.5, 1, 0, 0, 0, 'transformAnchor'];
+	  settings.transformSink.anchor = [0, 0.5, -1, 0, 0, 0, 'transformAnchor'];
 	
 	  return settings;
 	}
@@ -32790,16 +32822,21 @@
 	          _react2.default.createElement(
 	            'div',
 	            { className: (0, _classname2.default)(_defineProperty({ 'dag-node': true }, this.state.type, true)) },
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'label' },
-	              this.state.label
-	            )
+	            this.state.label
 	          ),
 	          this.state.id === '000000000' || this.state.id === '99999999' ? '' : _react2.default.createElement(
 	            'div',
-	            { className: 'deleteLabel', label: this.state.label },
-	            '\u5220\u9664'
+	            { className: 'controllers' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'label', label: this.state.label },
+	              '\u7F16\u8F91'
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'deleteLabel', label: this.state.label },
+	              '\u5220\u9664'
+	            )
 	          )
 	        )
 	      );
@@ -32984,7 +33021,7 @@
 	
 	
 	// module
-	exports.push([module.id, "my-dag {\n  display: block;\n}\nmy-dag .jsplumb-endpoint svg {\n  overflow: visible;\n}\nmy-dag .jsplumb-endpoint circle {\n  fill: white;\n  r: 2px;\n  stroke-width: 8px;\n}\nmy-dag .jsplumb-endpoint-anchor-sourceAnchor circle {\n  stroke: green;\n}\nmy-dag .jsplumb-endpoint-anchor-transformAnchor circle {\n  stroke: purple;\n}\nmy-dag .jsplumb-endpoint-anchor-sinkAnchor circle {\n  stroke: orange;\n}\nmy-dag .diagram-container {\n  position: relative;\n  width: 100%;\n  height: 80vh;\n  background: #eee;\n  overflow: hidden;\n}\nmy-dag .diagram-container #dag-container {\n  height: inherit;\n  width: inherit;\n  position: absolute;\n  transform-origin: left center;\n}\nmy-dag .diagram-container #dag-container .box {\n  position: absolute;\n  width: 130px;\n  height: 50px;\n  cursor: pointer;\n}\nmy-dag .diagram-container #dag-container .box .jtk-connector {\n  z-index: 4;\n}\nmy-dag .diagram-container #dag-container .box .jtk-endpoint {\n  z-index: 5;\n}\nmy-dag .diagram-container #dag-container .box .jtk-overlay {\n  z-index: 6;\n}\nmy-dag .diagram-container #dag-container .box .dag-node {\n  z-index: 20;\n  border: 1px solid #346789;\n  box-shadow: 2px 2px 19px #aaa;\n  border-radius: 0.5em;\n  opacity: 0.8;\n  width: 130px;\n  height: 50px;\n  line-height: 40px;\n  cursor: pointer;\n  text-align: center;\n  position: absolute;\n  background-color: #eeeeef;\n  color: black;\n  font-family: helvetica, sans-serif;\n  padding: 0.5em;\n  font-size: 0.9em;\n  transition: box-shadow 0.15s ease-in;\n  margin: 0 auto;\n  backgroun-clip: border-box;\n}\nmy-dag .diagram-container #dag-container .box .dag-node:hover {\n  box-shadow: 2px 2px 19px #444;\n  opacity: 0.6;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.source {\n  border: 2px solid green;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.source ~ .label {\n  color: green;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.transform {\n  border: 2px solid purple;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.transform ~ .label {\n  color: purple;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.sink {\n  border: 2px solid orange;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.sink ~ .label {\n  color: orange;\n}\nmy-dag .diagram-container #dag-container .box .label {\n  font-size: 12px;\n}\nmy-dag .fa.fa-spin.fa-refresh {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n}\n", ""]);
+	exports.push([module.id, "my-dag {\n  display: block;\n}\nmy-dag .jsplumb-endpoint svg {\n  overflow: visible;\n}\nmy-dag .jsplumb-endpoint circle {\n  fill: white;\n  r: 2px;\n  stroke-width: 8px;\n}\nmy-dag .jsplumb-endpoint-anchor-sourceAnchor circle {\n  stroke: green;\n}\nmy-dag .jsplumb-endpoint-anchor-transformAnchor circle {\n  stroke: #2da5e1;\n}\nmy-dag .jsplumb-endpoint-anchor-sinkAnchor circle {\n  stroke: orange;\n}\nmy-dag .diagram-container {\n  position: relative;\n  width: 100%;\n  height: 80vh;\n  background: #eee;\n  overflow: hidden;\n}\nmy-dag .diagram-container #dag-container {\n  height: inherit;\n  width: inherit;\n  position: absolute;\n  transform-origin: left center;\n}\nmy-dag .diagram-container #dag-container .box {\n  position: absolute;\n  width: 100px;\n  height: 50px;\n  cursor: pointer;\n}\nmy-dag .diagram-container #dag-container .box .jtk-connector {\n  z-index: 4;\n}\nmy-dag .diagram-container #dag-container .box .jtk-endpoint {\n  z-index: 5;\n}\nmy-dag .diagram-container #dag-container .box .jtk-overlay {\n  z-index: 6;\n}\nmy-dag .diagram-container #dag-container .box .dag-node {\n  z-index: 20;\n  border: 1px solid #2da5e1;\n  box-shadow: 2px 2px 19px #aaa;\n  border-radius: 1em;\n  opacity: 0.8;\n  width: 110px;\n  height: 50px;\n  line-height: 35px;\n  cursor: pointer;\n  text-align: center;\n  position: absolute;\n  background-color: #eeeeef;\n  color: black;\n  font-family: helvetica, sans-serif;\n  padding: 0.5em;\n  font-size: 0.9em;\n  transition: box-shadow 0.15s ease-in;\n  margin: 0 auto;\n  backgroun-clip: border-box;\n}\nmy-dag .diagram-container #dag-container .box .dag-node:hover {\n  box-shadow: 2px 2px 19px #444;\n  opacity: 0.6;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.source {\n  border: 2px solid green;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.source ~ .label {\n  color: green;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.transform {\n  border: 2px solid #2da5e1;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.transform ~ .label {\n  color: #2da5e1;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.sink {\n  border: 2px solid orange;\n}\nmy-dag .diagram-container #dag-container .box .dag-node.sink ~ .label {\n  color: orange;\n}\nmy-dag .diagram-container #dag-container .box .controllers {\n  width: 100%;\n  position: absolute;\n  text-align: center;\n  left: 6px;\n  top: 50px;\n}\nmy-dag .diagram-container #dag-container .box .controllers .label {\n  width: 50%;\n  float: left;\n}\nmy-dag .diagram-container #dag-container .box .controllers .deleteLabel {\n  float: left;\n  width: 50%;\n}\nmy-dag .fa.fa-spin.fa-refresh {\n  position: absolute;\n  left: 50%;\n  top: 50%;\n  transform: translate(-50%, -50%);\n}\n", ""]);
 	
 	// exports
 

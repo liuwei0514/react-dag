@@ -13,6 +13,11 @@ let nodes = (state = [], action = {}) => {
           type: action.payload.type
         }
       ];
+    case 'REMOVE-NODE':
+      var nodes = state.filter(function(item){
+        return item.id !== action.payload.id;
+      })
+      return nodes;
     case 'UPDATE_NODE':
       return state.map(node => {
         if (node.id === action.payload.nodeId) {
@@ -37,6 +42,11 @@ const connections = (state = [], action = {}) => {
           to: action.connection.to
         }
       ];
+    case 'REMOVE-CONNECTION':
+      var nodes = state.filter(function(item){
+        return !(item.from === action.payload.from && item.to === action.payload.to);
+      })
+      return nodes;
     case 'SET-CONNECTIONS':
       return [...action.payload.connections];
     case 'RESET':

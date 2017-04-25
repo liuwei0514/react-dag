@@ -150,7 +150,7 @@ export class DAG extends Component {
       this.toggleLoading(false);
       if (Object.keys(this.props.data || {}).length) {
         this.renderGraph();
-        this.cleanUpGraph();
+        // this.cleanUpGraph();
       }
     }, 600);
   }
@@ -163,6 +163,23 @@ export class DAG extends Component {
         label,
         style,
         id: type + Date.now().toString().slice(8)
+      }
+    });
+  }
+  removeConnection(sourceid, targetid){
+    this.store.dispatch({
+      type: 'REMOVE-CONNECTION',
+      payload: {
+        from: sourceid,
+        to: targetid
+      }
+    });
+  }
+  removeNode(nodeId) {
+    this.store.dispatch({
+      type: 'REMOVE-NODE',
+      payload: {
+        id: nodeId
       }
     });
   }

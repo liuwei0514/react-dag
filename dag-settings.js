@@ -8,7 +8,7 @@ export const defaultSettings = {
 };
 
 export const connectorStyle = {
-  stroke: 'black',
+  stroke: '#2da5e2',
   strokeWidth: 2,
   radius: 5,
   lineWidth: 2
@@ -28,8 +28,8 @@ export const commonSettings = {
   endpoint:'Dot',
   maxConnections: -1, // -1 means unlimited connections
   paintStyle: {
-    stroke: 'black',
-    fill: 'black',
+    stroke: '#2da5e2',
+    fill: '#2da5e2',
     radius: 5,
     lineWidth: 3
   },
@@ -38,11 +38,11 @@ export const commonSettings = {
 export const sourceSettings = extend({
   isSource: true,
   connectorStyle: connectorStyle,
-  anchor: [ 0.5, 1, 1, 0, 26, -43, 'sourceAnchor']
+  anchor: [ 1, 0.5, 1, 0, 0, 0, 'sourceAnchor']
 }, commonSettings);
 export const sinkSettings = extend({
   isTarget: true,
-  anchor: [ 0.5, 1, -1, 0, -26, -43, 'sinkAnchor'],
+  anchor: [ 0, 0.5, -1, 0, 0, 0, 'sinkAnchor'],
   connectorStyle: connectorStyle
 }, commonSettings);
 
@@ -66,8 +66,9 @@ export function getSettings(isDisabled) {
 
   settings.transformSource = clone(settings.source);
   settings.transformSink = clone(settings.sink);
-  settings.transformSource.anchor = [ 0.5, 1, 1, 0, 26, -43, 'transformAnchor'];
-  settings.transformSink.anchor = [ 0.5, 1, -1, 0, -26, -43, 'transformAnchor'];
+  // 0, 0.5, -1, 0
+  settings.transformSource.anchor = [ 1, 0.5, 1, 0, 0, 0, 'transformAnchor'];
+  settings.transformSink.anchor = [ 0, 0.5, -1, 0, 0, 0, 'transformAnchor'];
 
   return settings;
 }

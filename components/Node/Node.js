@@ -28,9 +28,10 @@ export default class Node extends Component {
               id={this.state.id}
               style={this.state.style}>
           <div className={classnames({'dag-node': true, [this.state.type]: true})}>
-            <div className="label">{this.state.label}</div>
+            {this.state.label}
           </div>
-          {this.state.id==='000000000' || this.state.id==='99999999' ? '':<div className="deleteLabel" label={this.state.label}>删除</div>}
+          {this.state.id==='000000000' || this.state.id==='99999999' ? ''
+          :<div className='controllers'><div className="label" label={this.state.label}>编辑</div><div className="deleteLabel" label={this.state.label}>删除</div></div>}
         </div>
       </DAG-Node>
     )
